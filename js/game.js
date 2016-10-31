@@ -58,16 +58,45 @@ Game.prototype.move = function(direction) {
           } else {
             this.gameString = this.gameString.replaceAt(i+4, this.gameString[i]);
             this.gameString = this.gameString.replaceAt(i, "0");
-          }
+          } ;
         };
       };
       break;
     case "left":
-      alert("Left!");
+      for (var i = 15 ; i > 0 ; i--) {
+        if (i % 4 != 0 ) {
+          if (this.gameString[i] != "0") {
+             var neighbor = this.gameString[i-1]
+             if (neighbor != "0") {
+               if (this.gameString[i] = neighbor) {
+                 this.gameString = this.gameString.replaceAt(i-1, String(this.gameString[i] * 2) );
+                 this.gameString = this.gameString.replaceAt(i, "0");
+               };
+             } else {
+               this.gameString = this.gameString.replaceAt(i-1, this.gameString[i]);
+               this.gameString = this.gameString.replaceAt(i, "0");
+             } ;
+          } ;
+        } ;
+      } ;
       break;
     case "right":
-
-      alert("Right!");
+      for (var i = 0 ; i < 15 ; i++) {
+        if (i % 4 != 3 ) {
+          if (this.gameString[i] != "0") {
+             var neighbor = this.gameString[i+1]
+             if (neighbor != "0") {
+               if (this.gameString[i] = neighbor) {
+                 this.gameString = this.gameString.replaceAt(i+1, String(this.gameString[i] * 2) );
+                 this.gameString = this.gameString.replaceAt(i, "0");
+               };
+             } else {
+               this.gameString = this.gameString.replaceAt(i+1, this.gameString[i]);
+               this.gameString = this.gameString.replaceAt(i, "0");
+             } ;
+          } ;
+        } ;
+      } ;
       break;
     };
 };
