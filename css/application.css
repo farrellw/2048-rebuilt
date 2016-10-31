@@ -29,6 +29,11 @@ td {
   width: 50%;
 }
 
+.scoreboard {
+  margin: auto;
+  width: 50%;
+}
+
 body { width: 100%;}
 
 .gray {

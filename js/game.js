@@ -1,4 +1,5 @@
 var Game = function(gameString = '') {
+  this.score = 0 ;
   this.gameString = gameString.split("");
   if ( gameString.length === 0) {
     var randOne = Math.floor(Math.random() * 16);
@@ -48,18 +49,18 @@ Game.prototype.move = function(direction) {
   if (this.checkCheckGame(checkGame)) {
     return
   } else {
-    alert("Game Over")
+    alert("Game Over");
   };
 };
 
 Game.prototype.checkCheckGame = function(checkGame) {
-  checkGame = this.upMove(checkGame);
+  checkGame = this.upMove(checkGame,"check");
   if (checkGame.toString() != this.gameString.toString()) { return true }
-  checkGame = this.downMove(checkGame);
+  checkGame = this.downMove(checkGame,"check");
   if (checkGame.toString() != this.gameString.toString()) { return true }
-  checkGame = this.leftMove(checkGame);
+  checkGame = this.leftMove(checkGame,"check");
   if (checkGame.toString() != this.gameString.toString()) { return true }
-  checkGame = this.rightMove(checkGame);
+  checkGame = this.rightMove(checkGame,"check");
   if (checkGame.toString() != this.gameString.toString()) { return true }
 }
 
@@ -69,7 +70,7 @@ Array.prototype.replaceAt = function(index, character) {
   return this;
 };
 
-Game.prototype.upMove = function(gameString) {
+Game.prototype.upMove = function(gameString, env = "") {
   for ( var i = 4; i < 16; i++) {
     var neighbor = gameString[i-4];
     var current = gameString[i];
@@ -83,6 +84,7 @@ Game.prototype.upMove = function(gameString) {
     var neighbor = gameString[i-4];
     var current = gameString[i];
     if (current != "0" && current === neighbor) {
+      if (env !="check"){this.score += current * 2};
       gameString = gameString.replaceAt(i-4, String(current * 2) );
       gameString = gameString.replaceAt(i, "0");
     };
@@ -111,7 +113,7 @@ Game.prototype.upMove = function(gameString) {
 //   };
 // }
 
-Game.prototype.downMove = function(gameString) {
+Game.prototype.downMove = function(gameString, env = "") {
   for ( var i = 11; i > -1; i--) {
     var neighbor = gameString[i+4];
     var current = gameString[i];
@@ -125,6 +127,7 @@ Game.prototype.downMove = function(gameString) {
     var neighbor = gameString[i+4];
     var current = gameString[i];
     if (current != "0" && current === neighbor) {
+      if (env !="check"){this.score += current * 2};
       gameString = gameString.replaceAt(i+4, String(current * 2) );
       gameString = gameString.replaceAt(i, "0");
     };
@@ -141,7 +144,7 @@ Game.prototype.downMove = function(gameString) {
   return gameString;
 };
 
-Game.prototype.leftMove = function(gameString) {
+Game.prototype.leftMove = function(gameString, env = "") {
   for ( var i = 1; i < 16; i++) {
     if (i % 4 != 0 ) {
       var neighbor = gameString[i-1];
@@ -158,6 +161,7 @@ Game.prototype.leftMove = function(gameString) {
       var neighbor = gameString[i-1];
       var current = gameString[i];
       if (current != "0" && current === neighbor) {
+        if (env !="check"){this.score += current * 2};
         gameString = gameString.replaceAt(i-1, String(current * 2) );
         gameString = gameString.replaceAt(i, "0");
       };
@@ -177,7 +181,7 @@ Game.prototype.leftMove = function(gameString) {
   return gameString;
 };
 
-Game.prototype.rightMove = function(gameString) {
+Game.prototype.rightMove = function(gameString, env = "") {
   for ( var i = 15; i > -1; i--) {
     if (i % 4 != 3 ) {
       var neighbor = gameString[i+1];
@@ -194,6 +198,7 @@ Game.prototype.rightMove = function(gameString) {
       var neighbor = gameString[i+1];
       var current = gameString[i];
       if (current != "0" && current === neighbor) {
+        if (env !="check"){this.score += current * 2};
         gameString = gameString.replaceAt(i+1, String(current * 2) );
         gameString = gameString.replaceAt(i, "0");
       };

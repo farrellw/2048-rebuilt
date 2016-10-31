@@ -1,15 +1,16 @@
-var renderBoard = function(gameBoardTag, arrayGameBoard) {
- $(gameBoardTag).empty();
- $(gameBoardTag).append("<table class='table'></table>")
- $board = $(gameBoardTag).children().first()
- console.log($board)
+var renderBoard = function(arrayGameBoard,gameScore) {
+ $(".gameboard").empty();
+ $(".gameboard").append("<table class='table'></table>")
+ $board = $(".gameboard").children().first()
  for (var i = 0 ; i < 4 ; i++) {
   $board.append("<tr class='board-row'></tr>")
   $row = $board.children().last();
   for (var j = 0 ; j < 4 ; j++){
     $row.append("<td class='board-cell " + colorCell(arrayGameBoard[i*4 + j]) + "'>" + arrayGameBoard[i*4 + j] + "</td>")
+    }
   }
- }
+  $(".scoreboard").empty()
+  $(".scoreboard").append("<h2>Score: "+ gameScore +"</h2>")
 };
 
 
