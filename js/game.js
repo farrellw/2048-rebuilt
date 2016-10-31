@@ -23,59 +23,45 @@ var Game = function(gameString = '') {
 //   return output ;
 // };
 
-Game.prototype.renderBoard = function(gameBoardTag) {
- $(gameBoardTag).empty();
- $(gameBoardTag).append("<table class='table'></table>")
- $board = $(gameBoardTag).children().first()
- console.log($board)
- for (var i = 0 ; i < 4 ; i++) {
-  $board.append("<tr class='board-row'></tr>")
-  $row = $board.children().last();
-  for (var j = 0 ; j < 4 ; j++){
-    $row.append("<td class='board-cell'>" + this.gameString[i*4 + j] + "</td>")
-  }
- }
-};
 
 Game.prototype.move = function(direction) {
-  var tempGame = this.gameString.slice(0);
+  var checkGame = this.gameString.slice(0);
   switch (direction)
   {
     case "up":
-      console.log("Going up");
-      this.gameString = upMove(this.gameString)
+      this.gameString = this.upMove(this.gameString)
       break;
     case "down":
-      console.log("Going down");
-      this.gameString = downMove(this.gameString)
+      this.gameString = this.downMove(this.gameString)
       break;
     case "left":
-      this.gameString = leftMove(this.gameString)
+      this.gameString = this.leftMove(this.gameString)
       break;
     case "right":
-      this.gameString = rightMove(this.gameString)
+      this.gameString = this.rightMove(this.gameString)
       break;
   };
-  if (tempGame.toString() != this.gameString.toString()) {
-    this.gameString = addNumber(this.gameString);
+  if (checkGame.toString() != this.gameString.toString()) {
+    this.gameString = this.addNumber(this.gameString);
   }
-  var tempGame = this.gameString.slice(0);
-  console.log(tempGame);
-  tempGame = upMove(tempGame);
-  if (tempGame.toString() != this.gameString.toString()) { return }
-  console.log("Just moved up");
-  console.log(tempGame);
-  tempGame = downMove(tempGame);
-  if (tempGame.toString() != this.gameString.toString()) { return }
-  console.log("Just moved down");
-  console.log(tempGame);
-  tempGame = leftMove(tempGame);
-  if (tempGame.toString() != this.gameString.toString()) { return }
-  console.log(tempGame);
-  tempGame = rightMove(tempGame);
-  if (tempGame.toString() != this.gameString.toString()) { return }
-    alert("Game Over");
+  var checkGame = this.gameString.slice(0);
+  if (this.checkCheckGame(checkGame)) {
+    return
+  } else {
+    alert("Game Over")
+  };
 };
+
+Game.prototype.checkCheckGame = function(checkGame) {
+  checkGame = this.upMove(checkGame);
+  if (checkGame.toString() != this.gameString.toString()) { return true }
+  checkGame = this.downMove(checkGame);
+  if (checkGame.toString() != this.gameString.toString()) { return true }
+  checkGame = this.leftMove(checkGame);
+  if (checkGame.toString() != this.gameString.toString()) { return true }
+  checkGame = this.rightMove(checkGame);
+  if (checkGame.toString() != this.gameString.toString()) { return true }
+}
 
 
 Array.prototype.replaceAt = function(index, character) {
@@ -83,7 +69,7 @@ Array.prototype.replaceAt = function(index, character) {
   return this;
 };
 
-var upMove = function(gameString) {
+Game.prototype.upMove = function(gameString) {
   for ( var i = 4; i < 16; i++) {
     var neighbor = gameString[i-4];
     var current = gameString[i];
@@ -113,7 +99,19 @@ var upMove = function(gameString) {
   return gameString;
 }
 
-var downMove = function(gameString) {
+// Game.prototype.upRemoveWhite = function (gamestring) {
+//   for ( var i = 4; i < 16; i++) {
+//     var neighbor = gameString[i-4];
+//     var current = gameString[i];
+//     if (neighbor === "0" && current != "0") {
+//       gameString = gameString.replaceAt(i-4, gameString[i]);
+//         gameString = gameString.replaceAt(i, "0");
+//         i -= 5;
+//     };
+//   };
+// }
+
+Game.prototype.downMove = function(gameString) {
   for ( var i = 11; i > -1; i--) {
     var neighbor = gameString[i+4];
     var current = gameString[i];
@@ -143,7 +141,7 @@ var downMove = function(gameString) {
   return gameString;
 };
 
-var leftMove = function(gameString) {
+Game.prototype.leftMove = function(gameString) {
   for ( var i = 1; i < 16; i++) {
     if (i % 4 != 0 ) {
       var neighbor = gameString[i-1];
@@ -179,7 +177,7 @@ var leftMove = function(gameString) {
   return gameString;
 };
 
-var rightMove = function(gameString) {
+Game.prototype.rightMove = function(gameString) {
   for ( var i = 15; i > -1; i--) {
     if (i % 4 != 3 ) {
       var neighbor = gameString[i+1];
@@ -216,7 +214,7 @@ var rightMove = function(gameString) {
   return gameString;
 }
 
-var addNumber = function(gameString) {
+Game.prototype.addNumber = function(gameString) {
     if (gameString.includes("0")) {
     var indexWorks = true;
     while (indexWorks) {

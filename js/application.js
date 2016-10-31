@@ -1,27 +1,21 @@
 $(document).ready(function() {
   var game = new Game;
-  console.log("left")
-  // console.log(game.toString())
-  game.move("left");
-  // console.log(game.toString())
-  // game.move("left");
-  // console.log(game.toString())
-  game.renderBoard(".gameboard")
+  renderBoard(".gameboard", game.gameString)
   Mousetrap.bind("up",function() {
-    game.move("up")
-    game.renderBoard(".gameboard")
+    game.move("up");
+    renderBoard(".gameboard", game.gameString);
   })
   Mousetrap.bind("down",function() {
-    game.move("down")
-    game.renderBoard(".gameboard")
+    game.move("down");
+    renderBoard(".gameboard", game.gameString);
   })
   Mousetrap.bind("left",function() {
-    game.move("left")
-    game.renderBoard(".gameboard")
+    game.move("left");
+    renderBoard(".gameboard", game.gameString);
   })
   Mousetrap.bind("right",function() {
-    game.move("right")
-    game.renderBoard(".gameboard")
+    game.move("right");
+    renderBoard(".gameboard", game.gameString);
   })
 
 });
