@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  var game = new Game("2240422020000004");
+  var game = new Game;
   console.log("left")
   // console.log(game.toString())
   game.move("left");
