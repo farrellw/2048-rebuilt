@@ -1,26 +1,39 @@
 var Game = function(gameString = '') {
-  this.gameString = gameString;
+  this.gameString = gameString.split("");
   if ( gameString.length === 0) {
     var randOne = Math.floor(Math.random() * 16);
     var randTwo = Math.floor(Math.random() * 16);
     for ( var i = 0; i < 16; i++) {
       if (i === randOne || i === randTwo) {
-       this.gameString += 2;
+       this.gameString.push("2");
       }
       else {
-       this.gameString += 0;
+       this.gameString.push("0");
       };
     };
   };
 };
 
-Game.prototype.toString = function() {
-  var output = "";
-  for ( var i = 0 ; i < 4 ; i++ ) {
-    output += this.gameString.substr ( 4*i , 4 );
-    output += '\n' ;
-  };
-  return output ;
+// Game.prototype.toString = function() {
+//   var output = "";
+//   for ( var i = 0 ; i < 4 ; i++ ) {
+//     output += this.gameString. 4*i , 4 );
+//     output += '\n' ;
+//   };
+//   return output ;
+// };
+
+Game.prototype.renderBoard = function(gameBoardTag) {
+ $(gameBoardTag).empty()
+ $(gameBoardTag).append("<table></table>")
+ $board = $(gameBoardTag).first()
+ for (var i = 0 ; i < 4 ; i++) {
+  $board.append("<tr></tr>")
+  $row = $board.last();
+  for (var j = 0 ; j < 4 ; j++){
+    $row.append("<td>"+this.gameString[i*4 + j]+"</td>")
+  }
+ }
 };
 
 Game.prototype.move = function(direction) {
@@ -155,9 +168,25 @@ Game.prototype.move = function(direction) {
       };
       break;
   };
+  if (this.gameString.includes("0")) {
+    var indexWorks = true
+    while (indexWorks) {
+      var index = Math.floor(Math.random() * 16);
+      if ( this.gameString[index] === "0" ){
+        this.gameString = this.gameString.replaceAt(index, "2");
+        indexWorks = false;
+      };
+    };
+  } else {
+    alert("Game Over")
+  }
+
+  // Replace that index with 2 if the value is 0
+  // Get a new index
 };
 
 
-String.prototype.replaceAt = function(index, character) {
-  return this.substr(0, index) + character + this.substr(index + character.length,this.length - index - character.length)
+Array.prototype.replaceAt = function(index, character) {
+  this[index] = character
+  return this
 };
