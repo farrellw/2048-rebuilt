@@ -21,84 +21,140 @@ Game.prototype.toString = function() {
     output += '\n' ;
   } ;
   return output ;
-}
+} ;
 
 Game.prototype.move = function(direction) {
   switch (direction)
   {
     case "up":
       console.log("Going up");
-      for ( var i = 15; i > 3; i--) {
-        if (this.gameString[i] != "0") {
-          // Check it's neighbor::
-          var neighbor = this.gameString[i-4]
-          if (neighbor != "0") {
-            if (this.gameString[i] = neighbor) {
-              this.gameString = this.gameString.replaceAt(i-4, String(this.gameString[i] * 2) );
-              this.gameString = this.gameString.replaceAt(i, "0");
-            };
-          } else {
-            this.gameString = this.gameString.replaceAt(i-4, this.gameString[i]);
+      for ( var i = 4; i < 16; i++) {
+        var neighbor = this.gameString[i-4]
+        var current = this.gameString[i]
+        if (neighbor === "0" && current != "0") {
+          this.gameString = this.gameString.replaceAt(i-4, this.gameString[i]);
             this.gameString = this.gameString.replaceAt(i, "0");
-          }
-        };
-      };
+            i -= 5
+        }
+      }
+      for ( var i = 4; i < 16; i++) {
+        var neighbor = this.gameString[i-4]
+        var current = this.gameString[i]
+        if (current != "0" && current === neighbor) {
+          this.gameString = this.gameString.replaceAt(i-4, String(current * 2) );
+          this.gameString = this.gameString.replaceAt(i, "0");
+        }
+      }
+      for ( var i = 4; i < 16; i++) {
+        var neighbor = this.gameString[i-4]
+        var current = this.gameString[i]
+        if (neighbor === "0" && current != "0") {
+          this.gameString = this.gameString.replaceAt(i-4, this.gameString[i]);
+          this.gameString = this.gameString.replaceAt(i, "0");
+          i -= 5
+        }
+      }
       break;
     case "down":
       console.log("Going down");
-      for ( var i = 0; i < 12; i++) {
-        if (this.gameString[i] != "0") {
-          // Check it's neighbor::
-          var neighbor = this.gameString[i+4]
-          if (neighbor != "0") {
-            if (this.gameString[i] = neighbor) {
-              this.gameString = this.gameString.replaceAt(i+4, String(this.gameString[i] * 2) );
-              this.gameString = this.gameString.replaceAt(i, "0");
-            };
-          } else {
-            this.gameString = this.gameString.replaceAt(i+4, this.gameString[i]);
-            this.gameString = this.gameString.replaceAt(i, "0");
-          } ;
-        };
-      };
+      for ( var i = 11; i > -1; i--) {
+        var neighbor = this.gameString[i+4]
+        var current = this.gameString[i]
+        if (neighbor === "0" && current != "0") {
+          this.gameString = this.gameString.replaceAt(i+4, this.gameString[i]);
+          this.gameString = this.gameString.replaceAt(i, "0");
+          i += 5
+        }
+      }
+      for ( var i = 11; i > -1; i--) {
+        var neighbor = this.gameString[i+4]
+        var current = this.gameString[i]
+        if (current != "0" && current === neighbor) {
+          this.gameString = this.gameString.replaceAt(i+4, String(current * 2) );
+          this.gameString = this.gameString.replaceAt(i, "0");
+        }
+      }
+      for ( var i = 11; i > -1; i--) {
+        var neighbor = this.gameString[i+4]
+        var current = this.gameString[i]
+        if (neighbor === "0" && current != "0") {
+          this.gameString = this.gameString.replaceAt(i+4, this.gameString[i]);
+          this.gameString = this.gameString.replaceAt(i, "0");
+          i += 5
+        }
+      }
       break;
     case "left":
-      for (var i = 15 ; i > 0 ; i--) {
+      console.log("Going left");
+      for ( var i = 1; i < 16; i++) {
         if (i % 4 != 0 ) {
-          if (this.gameString[i] != "0") {
-             var neighbor = this.gameString[i-1]
-             if (neighbor != "0") {
-               if (this.gameString[i] = neighbor) {
-                 this.gameString = this.gameString.replaceAt(i-1, String(this.gameString[i] * 2) );
-                 this.gameString = this.gameString.replaceAt(i, "0");
-               };
-             } else {
-               this.gameString = this.gameString.replaceAt(i-1, this.gameString[i]);
-               this.gameString = this.gameString.replaceAt(i, "0");
-             } ;
-          } ;
-        } ;
-      } ;
+          var neighbor = this.gameString[i-1]
+          var current = this.gameString[i]
+          if (neighbor === "0" && current != "0") {
+            this.gameString = this.gameString.replaceAt(i-1, this.gameString[i]);
+            this.gameString = this.gameString.replaceAt(i, "0");
+            i -= 2
+          }
+        }
+      }
+      for ( var i = 1; i < 16; i++) {
+        if (i % 4 != 0 ) {
+          var neighbor = this.gameString[i-1]
+          var current = this.gameString[i]
+          if (current != "0" && current === neighbor) {
+            this.gameString = this.gameString.replaceAt(i-1, String(current * 2) );
+            this.gameString = this.gameString.replaceAt(i, "0");
+          }
+        }
+      }
+      for ( var i = 1; i < 16; i++) {
+        if (i % 4 != 0 ) {
+          var neighbor = this.gameString[i-1]
+          var current = this.gameString[i]
+          if (neighbor === "0" && current != "0") {
+            this.gameString = this.gameString.replaceAt(i-1, this.gameString[i]);
+            this.gameString = this.gameString.replaceAt(i, "0");
+            i -= 2
+          }
+        }
+      }
       break;
     case "right":
-      for (var i = 0 ; i < 15 ; i++) {
+      console.log("Going right");
+      for ( var i = 15; i > -1; i--) {
         if (i % 4 != 3 ) {
-          if (this.gameString[i] != "0") {
-             var neighbor = this.gameString[i+1]
-             if (neighbor != "0") {
-               if (this.gameString[i] = neighbor) {
-                 this.gameString = this.gameString.replaceAt(i+1, String(this.gameString[i] * 2) );
-                 this.gameString = this.gameString.replaceAt(i, "0");
-               };
-             } else {
-               this.gameString = this.gameString.replaceAt(i+1, this.gameString[i]);
-               this.gameString = this.gameString.replaceAt(i, "0");
-             } ;
-          } ;
-        } ;
-      } ;
+          var neighbor = this.gameString[i+1]
+          var current = this.gameString[i]
+          if (neighbor === "0" && current != "0") {
+            this.gameString = this.gameString.replaceAt(i+1, this.gameString[i]);
+            this.gameString = this.gameString.replaceAt(i, "0");
+            i += 2
+          }
+        }
+      }
+      for ( var i = 15; i > -1; i--) {
+        if (i % 4 != 3 ) {
+          var neighbor = this.gameString[i+1]
+          var current = this.gameString[i]
+          if (current != "0" && current === neighbor) {
+            this.gameString = this.gameString.replaceAt(i+1, String(current * 2) );
+            this.gameString = this.gameString.replaceAt(i, "0");
+          }
+        }
+      }
+      for ( var i = 15; i > -1; i--) {
+        if (i % 4 != 3 ) {
+          var neighbor = this.gameString[i+1]
+          var current = this.gameString[i]
+          if (neighbor === "0" && current != "0") {
+            this.gameString = this.gameString.replaceAt(i+1, this.gameString[i]);
+            this.gameString = this.gameString.replaceAt(i, "0");
+            i += 2
+          }
+        }
+      }
       break;
-    };
+  };
 };
 
 
