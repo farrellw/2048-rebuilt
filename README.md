@@ -1,4 +1,4 @@
-# 256! A 2048 Clone.
+2048 Clone
 
 ## Learning Competencies
 
@@ -9,4 +9,4 @@
 
 ## Summary
 
-Dev Bootcamp 1 day project.  Built a complex JS model into separate Model View Controller Structure.  Had a lot of fun while doing it.
+Dev Bootcamp 1 day project.  Built a complex JavaScript model to mirror the popular game 2048 from scratch.  Built using distinctions within the Model View Controller Structure.  
